@@ -8,7 +8,15 @@ seq <- read.csv("C:/Users/Shixt/OneDrive/Desktop/INTERNFILES2/rnaseq_donor9861/R
 #Reading Sample Annotation file
 names <- read.csv("C:/Users/Shixt/OneDrive/Desktop/INTERNFILES2/rnaseq_donor9861/SampleAnnot.csv")
 
-seq <- rbind(names$ontology_structure_acronym, seq)
+#Taking the column names to add them back later, as they are currently the first row of the TPM file
+rowRecovery <- c(colnames(seq))
+namesVec <- c(names$ontology_structure_acronym)
+
+#Changing column names to what we need
+colnames(seq) <- namesVec
+
+#Final step
+seq <- rbind(rowRecovery, seq)
 
 #Put path after coma; R doesn't like using backslashes (\), so replace them with forward slashes(/), and 
 #then direct
